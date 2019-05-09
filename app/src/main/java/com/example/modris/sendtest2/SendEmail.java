@@ -30,7 +30,7 @@ import android.widget.EditText;
                 ok.putExtra(Intent.EXTRA_SUBJECT,sm.Subject);
                ok.putExtra(Intent.EXTRA_TEXT, sm.Message);
                 ok.setType("message/rfc822");
-        startActivity(Intent.createChooser(ok, "Choose Mail App"));
+//        startActivity(Intent.createChooser(ok, "Choose Mail App"));
     }
 }
 
