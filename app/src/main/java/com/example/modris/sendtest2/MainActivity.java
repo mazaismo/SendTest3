@@ -9,32 +9,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
-    SendEmail sm;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Log.d("main", " 1");
+       setContentView(R.layout.activity_main);
 
-//        Intent ok = new Intent(this, MainActivity.class);
-
-
-        sm = new SendEmail("brainstormer57@gmail.com", "Test",
-                "this is a default message");
-        setContentView(R.layout.activity_main);
-        EditText Message  = (EditText)findViewById(R.id.txtMsg);
         Button btn = (Button)findViewById(R.id.btnSend);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sm.Send();
 
+        btn.setOnClickListener(this);
+
+        }
+
+        @Override
+    public void onClick(View v) {
+        if(v.getId() == R. id.btnSend){
+            sendEmail();
             }
+        }
 
-        });
+        private void sendEmail(){
+        SendEmail sm = new SendEmail("brainstormer57@gmail.com", "Android/data/com.example.modris.sendtest2/files/fileToSend.txt", "test message", "test", this);
+        sm.Send();
+        }
+
+
     }
-}
+
 
 
 

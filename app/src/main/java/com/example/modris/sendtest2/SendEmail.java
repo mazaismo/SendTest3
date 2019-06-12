@@ -1,32 +1,40 @@
 package com.example.modris.sendtest2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.content.Context;
+
+import java.io.File;
 
 
- public class SendEmail extends AppCompatActivity {
+public class SendEmail {
 
-    private String To;
-    String Subject;
-    String Message;
-//    private Intent ok;
+   private String mail;
+   private String subj;
+   private String mess;
+   private String pat;
+   private Context con;
 
-    public SendEmail(String To, String Subject, String Message) {
+    public SendEmail(String mailAdr, String filePath, String subject, String message, Context context) {
 
-         this.To= To;
-         this.Subject = Subject;
-         this.Message = Message;
-//         this.ok = ok;
+         mail = mailAdr;
+         subj = subject;
+         mess = message;
+         pat = filePath;
+         con = context;
 
     }
     public void Send() {
                Intent ok = new Intent(Intent.ACTION_SEND);
-               ok.putExtra(Intent.EXTRA_EMAIL, new String[] { To });
-                ok.putExtra(Intent.EXTRA_SUBJECT,Subject);
-               ok.putExtra(Intent.EXTRA_TEXT, Message);
+        ok.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(pat)));
+       ok.setType("text/plain");
+               ok.putExtra(Intent.EXTRA_EMAIL, new String[] { mail });
+                ok.putExtra(Intent.EXTRA_SUBJECT,subj);
+               ok.putExtra(Intent.EXTRA_TEXT, mess);
                 ok.setType("message/rfc822");
-        startActivity(ok);
+
+                con.startActivity(ok);
     }
 }
 
