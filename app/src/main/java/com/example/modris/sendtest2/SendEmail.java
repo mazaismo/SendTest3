@@ -1,45 +1,38 @@
 package com.example.modris.sendtest2;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.content.Context;
-
+import android.os.StrictMode;
 import java.io.File;
 
 
 public class SendEmail {
+    private String mail;
+    private String subj;
+    private String mess;
+    private Context con;
+    private  File file;
 
-   private String mail;
-   private String subj;
-   private String mess;
-   private String pat;
-   private Context con;
-
-    public SendEmail(String mailAdr, String filePath, String subject, String message, Context context) {
-
-         mail = mailAdr;
-         subj = subject;
-         mess = message;
-         pat = filePath;
-         con = context;
-
+    public SendEmail(String mailAdr, String subject, String message, Context context) {
+        mail = mailAdr;
+        subj = subject;
+        mess = message;
+        con = context;
+        file = new File(con.getFilesDir(),"fileToSend.txt");
     }
-    public void Send() {
-               Intent ok = new Intent(Intent.ACTION_SEND);
-        ok.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(pat)));
-       ok.setType("text/plain");
-               ok.putExtra(Intent.EXTRA_EMAIL, new String[] { mail });
-                ok.putExtra(Intent.EXTRA_SUBJECT,subj);
-               ok.putExtra(Intent.EXTRA_TEXT, mess);
-                ok.setType("message/rfc822");
 
-                con.startActivity(ok);
+    public void Send() {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        Intent sendM = new Intent(Intent.ACTION_SEND);
+        sendM.putExtra(Intent.EXTRA_EMAIL, new String[]{mail});
+        sendM.putExtra(Intent.EXTRA_SUBJECT, subj);
+        sendM.putExtra(Intent.EXTRA_TEXT, mess);
+        sendM.putExtra(Intent.EXTRA_STREAM, android.net.Uri.fromFile(file));
+        sendM.setType("text/plain");
+        sendM.setType("message/rfc822");
+        con.startActivity(sendM);
     }
 }
-
-
-
-
 
 
