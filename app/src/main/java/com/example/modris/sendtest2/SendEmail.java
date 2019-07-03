@@ -13,6 +13,7 @@ public class SendEmail {
     private Context con;
     private  File file;
 
+
     public SendEmail(String mailAdr, String subject, String message, Context context) {
         mail = mailAdr;
         subj = subject;
