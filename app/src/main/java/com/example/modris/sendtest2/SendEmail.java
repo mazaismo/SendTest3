@@ -3,6 +3,8 @@ package com.example.modris.sendtest2;
 import android.content.Intent;
 import android.content.Context;
 import android.os.StrictMode;
+import android.widget.Toast;
+
 import java.io.File;
 
 
@@ -12,7 +14,7 @@ public class SendEmail {
     private String mess;
     private Context con;
     private  File file;
-    
+
 
     public SendEmail(String mailAdr, String subject, String message, Context context) {
         mail = mailAdr;
@@ -37,7 +39,8 @@ public class SendEmail {
         con.startActivity(sendM);
         }
     catch (Exception e){
-
+        Toast toast = Toast.makeText(con , "Error", Toast.LENGTH_SHORT);
+        toast.show();
         }
     }
 }
