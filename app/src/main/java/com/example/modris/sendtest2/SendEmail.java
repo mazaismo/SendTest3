@@ -12,7 +12,7 @@ public class SendEmail {
     private String mess;
     private Context con;
     private  File file;
-
+    
 
     public SendEmail(String mailAdr, String subject, String message, Context context) {
         mail = mailAdr;
@@ -22,7 +22,9 @@ public class SendEmail {
         file = new File(con.getFilesDir(),"fileToSend.txt");
     }
 
+
     public void Send() {
+    try {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         Intent sendM = new Intent(Intent.ACTION_SEND);
@@ -33,6 +35,10 @@ public class SendEmail {
         sendM.setType("text/plain");
         sendM.setType("message/rfc822");
         con.startActivity(sendM);
+        }
+    catch (Exception e){
+
+        }
     }
 }
 
